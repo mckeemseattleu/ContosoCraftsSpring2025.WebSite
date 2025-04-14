@@ -4,5 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
-
+ <ItemGroup>
+     <Content Update="wwwroot\data\products.json">
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     </Content>
+ </ItemGroup>
 </Project>
