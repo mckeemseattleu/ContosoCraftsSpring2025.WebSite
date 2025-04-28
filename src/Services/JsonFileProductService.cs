@@ -18,10 +18,14 @@ namespace ContosoCrafts.WebSite.Services
 
         public IWebHostEnvironment WebHostEnvironment { get; }
 
+
+
         private string JsonFileName
         {
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json"); }
         }
+
+
 
         public IEnumerable<ProductModel> GetProducts()
         {
@@ -35,7 +39,7 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
-        public void AddRating(string productId, int rating)
+        public bool AddRating(string productId, int rating)
         {
             var products = GetProducts();
 
@@ -58,6 +62,46 @@ namespace ContosoCrafts.WebSite.Services
                         SkipValidation = true,
                         Indented = true
                     }), 
+                    products
+                );
+            }
+
+            return true;
+        }
+
+        public bool UpdateData(ProductModel data)
+        {
+            bool isValidUpdate = false;
+            var products = GetProducts();
+            var productData = products.FirstOrDefault(x => x.Id.Equals(data.Id));
+            if (productData == null)
+            {
+                isValidUpdate = false;
+                return isValidUpdate;
+            }
+
+             //var newProductList; 
+            // TODO - You will have to figure out how to get the updated
+            // data into newProductList
+
+            //SaveData(newProductList);
+
+            isValidUpdate = true;
+            return isValidUpdate;
+        }
+
+
+        private void SaveData(IEnumerable<ProductModel> products)
+        {
+
+            using (var outputStream = File.Create(JsonFileName))
+            {
+                JsonSerializer.Serialize<IEnumerable<ProductModel>>(
+                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                    {
+                        SkipValidation = true,
+                        Indented = true
+                    }),
                     products
                 );
             }
