@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {
@@ -29,9 +30,24 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// REST Get request
         /// </summary>
         /// <param name="id"></param>
-        public void OnGet(string id)
+        /// 
+
+
+        /// <summary>
+        /// REST Get request
+        /// </summary>
+        /// <param name="id"></param>
+        public IActionResult OnGet(string id)
         {
-            Product  = ProductService.GetProducts().FirstOrDefault(m => m.Id.Equals(id));
+            Product = ProductService.GetProducts().FirstOrDefault(m => m.Id.Equals(id));
+            if (Product == null)
+            {
+                this.ModelState.AddModelError("bogus", "bogus error");
+                return RedirectToPage("./Index"); // Probably should be an error message
+            }
+
+            return Page();
         }
+
     }
 }
