@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+// We are adding a comment
 namespace ContosoCrafts.WebSite
 {
     public class Startup
