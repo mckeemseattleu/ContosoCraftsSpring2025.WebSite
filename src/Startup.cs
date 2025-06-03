@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 // We are adding a comment
+// I'm adding another comment
 namespace ContosoCrafts.WebSite
 {
     public class Startup
